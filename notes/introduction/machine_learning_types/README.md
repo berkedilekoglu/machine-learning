@@ -12,9 +12,6 @@ There are many types of the machine learning algorithms.
 
 ### Supervised Learning
 
-supervised-learning-image
-[Image Ref](https://www.javatpoint.com/supervised-machine-learning)
-
 In supervised learning, models are trained with human supervision. We have desired solutions for each training data instance, which are called labels. Two common tasks are classification and regression. 
 
 We can say that the task is a **_classification_** task if we have finite number of labels. The spam filter is a good example of this: it is trained with many example emails along with their class (spam or ham), and it must learn how to classify new emails.
