@@ -5,10 +5,12 @@ Türkçeye 'Karar Ağaçları' olarak çevrilse de ML alanında çalışacak ki�
 ## Training
 
 Decision Treeler eğitilirken training setimizdeki featurelara bakarak kuralları öğrenirler. Aslında basitçe bir if-then kurallar bütünü olarak da değerlendirebiliriz. Oluşan ağaca baktığımızda, anlaşılması en kolay algoritmalardandır.
-[https://www.datacamp.com/tutorial/decision-tree-classification-python]
+![[decision_tree_example](https://www.datacamp.com/tutorial/decision-tree-classification-python)](https://github.com/berkedilekoglu/machine-learning/assets/19657350/0af77f4a-6fcc-4bc3-a28b-1be47d668b72)
 
 Training için önemli adım ağacı split ederken nasıl split etmemiz gerektiğidir. Bunun için genel olarak __Impurity__ kullanılır. 
-[https://www.baeldung.com/cs/impurity-entropy-gini-index]
+
+![[impurity](https://www.baeldung.com/cs/impurity-entropy-gini-index)](https://github.com/berkedilekoglu/machine-learning/assets/19657350/bd949c3f-92c8-4a40-a076-716c0c30466f)
+
 Figürde gördüğümüz gibi en sağda bulunan ve hepsi aynı class'a ait olan örnek minimum impurity örneğidir. Figürde sola doğru gidildikçe impurity artar. Farklı impurity ölçme şekilleri şunlardır:
 - Entorpy
 - Gini index
@@ -35,7 +37,8 @@ En sağdaki figür için hesaplarsak elimizde 16 adet kırmızı 0 adet mavi ör
 Peki Entorpy kullanarak nasıl split işlemi uygulanır ? İşte information gain burada devreye giriyor. Tüm split opsiyonları arasından Information Gain'i en yüksek olan split'i seçerek ilerlemek yaygın kullanılan bir yöntem. Bunu hesaplamak için de aslında Entropy'nin o split seçeneği ile ne kadar azaldığına bakıyoruz. Basitçe:
 - Information Gain = Parent Entropy - Weighted Average of Child Entropies
 
-[IMAGE GELCEK]
+![entropy](https://github.com/berkedilekoglu/machine-learning/assets/19657350/67293d29-a9f7-4ee6-87dd-57cae1ee2a53)
+
 
 Örnek information gain hesaplaması resimde gösterilmiştir. __Information Gain__'in fazla olduğu split seçeneği en iyi opsiyon olarak değerlendirilebilir. Bu çıkarımı şöyle de yapabiliriz. En iyi split tüm classların tamamen ayrılacağı splittir. Mesela 2 adet class için bir parent node'umuz var. Bu node'da 2 adet class 1, 2 adet ise class 2 örneği bulunuyor. Bu durumda ilk Entorpy hesaplama örneğinde hesapladığımız gibi parent Entorpy'miz 1 olacaktır. Split durumunda 2 adet yeni node oluştuğunu ve classları tamamen ayırdığımızı düşünelim. Böylece entropy tam olarak ikinci entropy hesaplama örneğimizdeki gibi her bir node için 0 çıkacaktır. Bu sebeple en iyi split durumu için Information Gain 1 olarak hesaplanır. Tam tersi durum için ise 0 olarak hesaplanır.
 
@@ -49,7 +52,8 @@ GINI_{i} = 1 - \sum_{k=1}^{n}P(i,k)^2
 -  $`n`$ toplam class sayısıdır 
 -  $`P(i,k)`$ i node'unda bulunan k class'ına ait örneklerin, i node'unda bulunan toplam örnek sayısına oranıdır.
 
-[Image]
+![gini](https://github.com/berkedilekoglu/machine-learning/assets/19657350/5385b922-45c4-4fa2-991d-c46233cbaad3)
+
 
 Gini hesaplamasıyla yaptığımız örnekten de göreceğiniz gibi sonucu seçerken __Information Gain__ kullanıyoruz. 
 
