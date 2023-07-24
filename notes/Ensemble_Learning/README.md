@@ -21,7 +21,8 @@ Elimizde bir data üzerinde eğitilmiş ayrı modeller olduğunu düşünün. Me
 >> Burada dikkat etmemiz gereken şey eğitimler için aynı datayı kullandığımızdan dolayı farklı şeyler öğrenebilmek için farklı algoritmalar kullanmaya özen göstermektir. Eğer ensemble learning yöntemi olarak voting kullanacaksanız farklı algoritmalar kullanmanız başarı oranınızı arttıracaktır. Örneğin Random Forest ve Extra Tree algoritmaları benzer yapıda olduğundan dolayı aynı hataları yapma ihtimalleri yüksek olur. Aynı hataların yapıldığı predictionlardan voting yaparak daha iyi sonuçlar alma ihtimalimiz düşer.
 
 ### Hard Voting (Majority Voting)
-(Buraya resim çizip koy)
+![hard_voting](https://github.com/berkedilekoglu/machine-learning/assets/19657350/8d1640c4-1bf5-4b2d-bb41-678550c1d89a)
+
 Bu modellerden daha iyi bir accuracy almak için bir ensembling yapmanın en kolay yöntemi **_hard voting_** dediğimiz yöntemdir. Hard voting yöntemi tüm modellerin yaptığı tahminlere bakarak en çok tahmin edilen sınıfı seçer. 
 Örneğin: 2 class tahminlemesi yapılan bir problemde bir test örneği üzerinde aşağıdaki tahminler yapılsın.
 
@@ -34,7 +35,8 @@ Bu tahminlere göre **_hard voting_** yöntemi kullanılırsa bu test örneği �
 >> **_Hard voting_** kullanırken tahmin edilen sınıflar eşit sayıdaysa Örneğin SVM: 1. sınıf, LR: 2. sınıf, Random Forest: 1. sınıf, KNN: 2. sınıf tahmin etti. O zaman sınıflar arasında random bir sınıf seçilerek döndürülür.
 
 ### Soft Voting
-(Buraya resim çizip koy)
+
+![soft_voting](https://github.com/berkedilekoglu/machine-learning/assets/19657350/78f20f89-1beb-4d4d-9aba-078e97e816b7)
 
 **_Hard voting_** kısmında bahsettiğim gibi eğer tahminlerinizi olasılık olarak yapmak istiyorsanız **_Soft Voting_** yöntemini kullanmanız gerekiyor. Soft voting, her bir modelin tahminleri üzerinde ağırlıklar kullanır ve bu ağırlıklar, her modelin güvenilirliğini veya performansını yansıtır. Sınıf olasılıklarının toplamı üzerinde bir normalizasyon işlemi yapılır ve en yüksek toplam olasılığa sahip olan sınıf seçilerek tahmin edilir. Olasılığı yüksek olan modelin etkisi çok olacağı için kendinden emin model daha çok etkide bulunur.
 
@@ -63,6 +65,8 @@ Bu şekilde, sınıf olasılıklarının ağırlıklı bir şekilde hesaplanmas�
 >> *__Soft Voting__* kendinden emin modele daha fazla ağırlık verdiği için genelde *__hard voting__* modelinden daha iyi çalışır. Ama en iyisine karar vermek için ikisini de denemekte fayda var.
 
 ## Bagging (Bootstrap aggregating) ve Pasting
+
+![bagging](https://github.com/berkedilekoglu/machine-learning/assets/19657350/ae5378b6-be54-46c0-b22b-0ee93a969cf9)
 
 *__Hard Voting__* ve *__Soft Voting__* yöntemlerinde aynı training data üzerinde eğitilmiş farklı modeller kullanmıştık. *__Bagging__* ve *__Pasting__* yönteminde ise farklı training datalar üzerinde eğitilmiş modeller kullanmayı hedefliyoruz. Aslında hepsinde aynı şeyi yapmaya çalışıyoruz: 
 
@@ -139,7 +143,10 @@ Burada modelleri ard arda train etme deyimi aslında boosting ve bagging'i ayır
 
 ### AdaBoost
 
-(Image Taken From Hands-On Machine Learning with Scikit-Learn and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems)[https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/]
+<img width="857" alt="Screenshot 2023-07-24 at 21 30 16" src="https://github.com/berkedilekoglu/machine-learning/assets/19657350/e83f5b59-d60c-4b9b-b42d-0807744566c1">
+
+[Image Taken From Hands-On Machine Learning with Scikit-Learn and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems]([docs/CONTRIBUTING.md](https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/))
+
 Aslında AdaBoost yöntemini anlamak için biraz weighted loss üzerine düşünmemiz gerekiyor. Bir öğrenme gerçekleşirken esas amacımız loss'u azaltmaktır. Bunu yapılan hatayı azaltmak olarak da düşünebilirsiniz. Zaten loss fonksiyonları tahmin edilen değer ve gerçek değer arasındaki farkı ölçerek hesaplanır. Hata payı ne kadar fazla ise loss'umuz o kadar fazladır. 
 
 Genelde loss hesaplanırken her bir örneğe eşit önem verilir. Ancak bazı örnekler modeller tarafından kolaylıkla tahmin edilebilirken ve öğrenilebilirken bazı örnekleri modelin öğrenmesi zor olmaktır. Bunlara çoğunlukla "Hard Examples" ismi verilir. Bu öğrenilmesi zor örnekleri belirleyip bu örnekler için yapılan hatalara biraz weight eklersek modeller eğitim sırasında bu örneklere daha fazla dikkat ederler.
@@ -167,6 +174,8 @@ En sonunda ensemble predictionlar için basitçe tüm modellerin predictionları
 >> **_XGBoost_**, Gradient Boosting yöntemini kullanan en popüler algoritmalardan başında gelmektedir. Unstructured datalarda çok iyi çalışır ve çoğu Kaggle yarışmasında tercih edilir. Çoğu problemde Neural Networklere yakın veya daha iyi sonuçlar almanızı sağlar. XGBoost weak learner olarak Decision Tree kullanır ve Gradient Boosting yöntemi ile tahminleme yapar. Ancak çok daha hızlı olması ve optimum performans için tasarlanmıştır. [Şuradan](https://xgboost.readthedocs.io/en/stable/install.html) indirebilirsiniz.
 
 ### Stacking
+
+![stacking_image](https://github.com/berkedilekoglu/machine-learning/assets/19657350/8cddcda3-eb45-4ced-829a-711c98b7509c)
 
 Stacking ensemble, birden fazla modelin eğitildiği ve bu modellerin tahminlerinin birleştirilerek nihai bir tahmin oluşturulduğu bir tekniktir. Bu genellikle, temel modellerin tahminlerini girdi olarak alan ve bir nihai tahmin çıktısı üreten bir 'meta-model' eğiterek gerçekleştirilir. Stacking'in temel fikri, birden fazla modelin tahminlerinin birleştirilmesinin, tek başına herhangi bir modelden daha iyi performansa yol açabileceğidir.
 
