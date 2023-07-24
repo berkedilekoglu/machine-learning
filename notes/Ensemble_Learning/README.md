@@ -10,13 +10,14 @@ Bu yazıda aşağıdaki ensemble tekniklerini inceliycez:
 
 - Voting
 - Bagging/Pasting (Random Forest, Extra Trees)
-- Boosting
+- Boosting (AdaBoost, Gradient Boosting (XGBoost))
 - Stacking
 
 ## Voting
 
 Voting yöntemleri yapılarından dolayı classification problemleri için kullanılan basit ensemble yöntemleridir.
 Elimizde bir data üzerinde eğitilmiş ayrı modeller olduğunu düşünün. Mesela Logistic Regression, SVM, Random Forest ve birkaç tane daha modelden ayrı ayrı %80 civarı accuracy aldığımızı farz edelim. 
+
 >> Burada dikkat etmemiz gereken şey eğitimler için aynı datayı kullandığımızdan dolayı farklı şeyler öğrenebilmek için farklı algoritmalar kullanmaya özen göstermektir. Eğer ensemble learning yöntemi olarak voting kullanacaksanız farklı algoritmalar kullanmanız başarı oranınızı arttıracaktır. Örneğin Random Forest ve Extra Tree algoritmaları benzer yapıda olduğundan dolayı aynı hataları yapma ihtimalleri yüksek olur. Aynı hataların yapıldığı predictionlardan voting yaparak daha iyi sonuçlar alma ihtimalimiz düşer.
 
 ### Hard Voting (Majority Voting)
@@ -78,6 +79,14 @@ Bagging/Pasting yöntemi, tahminleyici modellerin birbirinden bağımsız olarak
 >> Bagging/Pasting yönteminin en güzel yanı paralel şekilde eğitimin yapılabilmesidir. Verdiğim örnekte de görebileceğimiz gibi 1000 adet decision tree ayrı ayrı eğitilebilir. Bu sebeple Paralel Processing kullanabilirsiniz. Yani bilgisayarınızdaki farklı cpu corelarına işlemi bölerek eğitimleri aynı anda gerçekleştirebilir ve süreci hızlandırabilirsiniz.
 
 >> Genelde kullanılan default yöntem Bagging'dir. Ama ikisininde artıları ve eksileri veri setine göre değiştiği için eğer vaktiniz varsa Pasting'i de test etmenizi öneriririm.
+## Out-of-Bag Evaluation / Score
+
+Bagging yöntemini kullanırken nasıl bir evaluation kullanabiliriz sorusunun aslında iki cevabı var. Tabiki de training'e başlamadan önce kendi evaluation setinizi oluşturup ensemble tahminleyicinizi burada evaluate edebilirsiniz. En doğru ölçüm bu şekilde yapılır. 
+
+Ancak elinizde az sayıda training datanız varsa, datanızı ekstra bölmek istemeyebilirsiniz. Böyle bir durumda şunu düşünün. Bagging yönteminde her bir tahminleyicimiz training datadan random olarak seçilen bir subsamples üzerinde eğitiliyor. Yani aslında geriye hiç kullanılmayan bir data kısmı kalmış oluyor. Bu olay her bir tahminleyici için oluşuyor ve her tahminleyicinin kendi evaluation setini oluşturmuş oluyoruz. 
+
+Peki ölçümü nasıl yapıyoruz ? Mesela elimizde bagging yöntemi kullanılarak ensemble öğrenimi yapılan 10 adet Decision Tree olsun. Her bir tree için ayrı ayrı subsetler oluşturduk ve ayrı ayrı training ve evaluation setleri oluşturduk. Ardından her bir tree'nin kendi evaluation setlerindeki örnekler için tahminlerini alıyoruz. Ardından bu örneklerin ortak olduğu treelerin tahminlerinin ortalamasını alabiliriz. Örneğin bir örnek 1., 6. ve 9. Decision Tree'lerin evaluation setlerinde ortak bulunuyor. Bu örneği bu üç treede de tahminleyip ortalama cevabı (herhangi bir voting yöntemi ile) alıyoruz. Bunu tüm evaluation set'e yaptığımızda artık elimizde tahminler ve doğru cevaplar oluyor. Bundan sonrasında istediğiniz ölçümü yapabilirsiniz.
+
 
 ## More Diversity (Feature Selection)
 
@@ -100,7 +109,9 @@ from sklearn.ensemble import RandomForestClassifier
 randomForest_classifier = RandomForestClassifier(n_estimators=500, n_jobs=-1)
 ```
 
-Random Forest algoritması içerisindeki Decision Treelere daha fazla çeşitlilik katmak ağaçlar büyürken tüm featurelar arasından en iyi feature'ı seçmek yerine [Decision Tree Splitting](https://github.com/berkedilekoglu/machine-learning/tree/main/notes/Decision_Trees#information-gain) random olarak seçtiği featurelar arasından en iyi feature'ı seçmeye çalışır.
+Random Forest algoritması içerisindeki Decision Treelere daha fazla çeşitlilik katmak için ağaçlar büyürken tüm featurelar arasından en iyi feature'ı seçmek yerine [Decision Tree Splitting](https://github.com/berkedilekoglu/machine-learning/tree/main/notes/Decision_Trees#information-gain) random olarak seçtiği featurelar arasından en iyi feature'ı seçmeye çalışır.
+
+>> Random Forest'ı oluşturan ağaçların kullandığı featureların impurity değerleri hesaplanarak (impurity'i ne kadar azalttığı) tüm ağaçlara göre ortalaması alınarak feature importance ölçümü yapılabilir. Scikit-learn kütüphanesi bu yöntemi kullanarak size feature importance ölçümü verir.
 
 ### Extra Trees
 
@@ -116,3 +127,52 @@ Ancak Extra Trees'da (Extremely Randomized Trees), normal karar ağaçlarından 
 
 Bu rastgele eşik değerleri seçimi, ağaçların daha da çeşitlendirilmesini sağlar. Bu çeşitlilik, ensemble yöntemi olan Extra Trees'ın daha fazla varyansı azaltma potansiyeline sahip olmasını sağlayabilir.
 
+
+## Boosting (Hypothesis Boosting)
+
+Boosting methodunda genel amaç modelleri ard arda train ederek birbirlerinin yanlışlarını öğrenmelerini sağlamaktır. En popüler boosting methodları:
+
+* AdaBoost (Adaptive Boosting)
+* Gradient Boosting
+
+Burada modelleri ard arda train etme deyimi aslında boosting ve bagging'i ayıran en önemli ayrımlardan biridir. Modeller birbiri ardına train edileceği ve birbirlerinin yanlışlarını öğreneceği için boosting yöntemlerinde paralel processing yapılamamaktadır.
+
+### AdaBoost
+
+(Image Taken From Hands-On Machine Learning with Scikit-Learn and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems)[https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/]
+Aslında AdaBoost yöntemini anlamak için biraz weighted loss üzerine düşünmemiz gerekiyor. Bir öğrenme gerçekleşirken esas amacımız loss'u azaltmaktır. Bunu yapılan hatayı azaltmak olarak da düşünebilirsiniz. Zaten loss fonksiyonları tahmin edilen değer ve gerçek değer arasındaki farkı ölçerek hesaplanır. Hata payı ne kadar fazla ise loss'umuz o kadar fazladır. 
+
+Genelde loss hesaplanırken her bir örneğe eşit önem verilir. Ancak bazı örnekler modeller tarafından kolaylıkla tahmin edilebilirken ve öğrenilebilirken bazı örnekleri modelin öğrenmesi zor olmaktır. Bunlara çoğunlukla "Hard Examples" ismi verilir. Bu öğrenilmesi zor örnekleri belirleyip bu örnekler için yapılan hatalara biraz weight eklersek modeller eğitim sırasında bu örneklere daha fazla dikkat ederler.
+
+AdaBoost'un çalışma prensibi de bu prensipe dayanır. Bir weak learner eğitildikten sonra training seti üzerinde tahmin yaptırılır ve yaptığı hatalı tahminler işaretlenir. Bu örneklere weight eklenerek bir sonraki weak learner eğitilir. Böylece 2. eğitilen model 1. eğitilen modelin tahmin edemediği örnekleri daha iyi öğrenir. Bu süreç istenilen sayıda learner eğitildiğinde son bulur. 
+
+Son olarak kullanılan tüm modellerin predictionları weighted vote yapılarak output prediction elde edilir.
+
+>> Yukarıda anlatılan işlemler ard arda yapılmak zorunda olduğundan paralel bir eğitim işlemi yapılamaz. Sadece weak learnerlar kendi içlerinde paralel eğitilebilir (Eğer weak learner paralel eğitime müsaitse).
+
+### Gradient Boosting
+
+Gradient Boosting'de AdaBoost gibi sequential olarak hata öğrenimine dayalı bir ensemble yöntemidir. Ancak bu yöntemde sample'lar için weight kullanılmaktansa Residual Error dediğimiz arda kalan hatalar kullanılır. Classification ve Regressionda problemlerinin her ikisi için de bu yöntem kullanılsa da classification'da matematiksel olarak sınıf olasılıklarını hesaplarken birkaç hesaplama daha yapılmaktadır. Bu sebeple Gradient Boosting'in çalışma prensibinin daha iyi anlaşılması için bir regression problemi üzerinden anlatıcam:
+
+1) Regression problemimizde training datamızı X_train ve y_train olarak düşünün. 
+2) Bir weak learner seçelim, diyelim ki Decision Tree.
+3) Bu Decision Tree'yi X_train ve y_train kullanarak eğitelim ve tahminleri y_pred_1 olarak alalım.
+4) Residual error dediğimiz değerler y_residual = y_train - y_pred_1 değerleridir.
+5) Şimdi başka bir Decision Tree'yi X_train ve y_residual üzerinde eğiteceğiz.
+6) Yeni residual error'umuz y_residual = y_train - (y_pred_1 + y_pred_2) olacak
+7) Bunu istediğimiz kadar learner eğitene kadar devam edebiliriz.
+
+En sonunda ensemble predictionlar için basitçe tüm modellerin predictionları toplanabilir veya voting yöntemleri kullanılabilir.
+
+>> **_XGBoost_**, Gradient Boosting yöntemini kullanan en popüler algoritmalardan başında gelmektedir. Unstructured datalarda çok iyi çalışır ve çoğu Kaggle yarışmasında tercih edilir. Çoğu problemde Neural Networklere yakın veya daha iyi sonuçlar almanızı sağlar. XGBoost weak learner olarak Decision Tree kullanır ve Gradient Boosting yöntemi ile tahminleme yapar. Ancak çok daha hızlı olması ve optimum performans için tasarlanmıştır. [Şuradan](https://xgboost.readthedocs.io/en/stable/install.html) indirebilirsiniz.
+
+### Stacking
+
+Stacking ensemble, birden fazla modelin eğitildiği ve bu modellerin tahminlerinin birleştirilerek nihai bir tahmin oluşturulduğu bir tekniktir. Bu genellikle, temel modellerin tahminlerini girdi olarak alan ve bir nihai tahmin çıktısı üreten bir 'meta-model' eğiterek gerçekleştirilir. Stacking'in temel fikri, birden fazla modelin tahminlerinin birleştirilmesinin, tek başına herhangi bir modelden daha iyi performansa yol açabileceğidir.
+
+Yukarıdaki şekilde görebileceğiniz gibi, bir stacking ensemble farklı modellerin tahminlerini kullanarak nihai bir sınıflandırıcıyı eğitmektedir. Burada dikkat edilmesi gereken önemli bir nokta, sklearn stacking sınıflandırıcı içinde bir Keras modeli kullanıyorsak girdi şeklini belirtmemiz gerektiğidir. Yukarıdaki şekilde gösterildiği gibi, sinir ağımıza veri girişinin boyutu artık eğitim verilerimizle aynı olmayabilir.
+
+
+### Kişisel Not
+
+Son zamanlarda oldukça kullanılan oto-ml frameworkleri genelde farklı modellerin stack edilmiş hallerini kullanıyorlar. Özellikle kurulan 4-5 stacking ensemble modeli soft voting ile ensemble yapıldığında modellerin hataları oldukça iyileştirilebiliyor. Tabiki bu her ml taskında olduğu gibi datadan dataya değişen bir durum ancak artık modelinizi geliştiremediğiniz durumlarda bunu deneyebilirsiniz.
