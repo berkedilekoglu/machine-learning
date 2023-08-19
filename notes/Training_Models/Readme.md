@@ -2,7 +2,7 @@
 
 Bu bölümde machine learning modellerinin nasıl eğitildiklerini göreceğiz. Aslında bu kısımı bilmeden de framework'leri kullanarak modellerinizi eğitip optimize edebilirsiniz. Ancak neyin nasıl çalıştığını bildiğinizde modelleri geliştirmek daha kolay oluyor. Çünkü bu alanda çalışacaksanız şunu anlıyorsunuz, denenecek çok fazla model ve yapılacak birçok deney var. Bunların hepsini yapmak büyük bir zaman kaybı olacaktır. Eğer arkadaki çalışma prensiplerini anlarsanız probleminize ve veri kümenizin özelliklerine göre hangi deneyleri yapacağınızı belirleyebilirsiniz. Bu da size zaman kazandırıp projelerinizi daha iyi yönetme kabiliyeti sağlayacaktır.
 
-Bu bölümde basit çalışma prensibine sahip machine learning modellerinin arkasındaki sistemle başlayıp şuanki kullanılan matematiksel hesaplama yöntemlerine doğru gideceğiz. İlk olarak __Gradient Descent (GD)__'ile nasıl hesaplamalar yapıldığını öğreneceğiz. Ardından __Batch Gradient Descent GD__, __Mini-batch GD__, ve __Stochastic GD__ konularına bakacağız. Daha sonrasında birkaç __Regularization__ yöntemini öğrenip nasıl overfitting'i engelliyorlar onu göreceğiz. Son olarak __Linear Regression__, __Polynomial Regression__, __Logistic Regression__ ve __Softmax Regression__ modellerine göz atacağız.
+Bu bölümde basit çalışma prensibine sahip machine learning modellerinin arkasındaki sistemle başlayıp şuanki kullanılan matematiksel hesaplama yöntemlerine doğru gideceğiz. İlk olarak __Gradient Descent (GD)__'ile nasıl hesaplamalar yapıldığını öğreneceğiz. Ardından __Batch Gradient Descent__, __Mini-batch GD__, ve __Stochastic GD__ konularına bakacağız. Daha sonrasında birkaç __Regularization__ yöntemini öğrenip nasıl overfitting'i engelliyorlar onu göreceğiz. Son olarak __Linear Regression__, __Polynomial Regression__, __Logistic Regression__ ve __Softmax Regression__ modellerine göz atacağız.
 
 ## Gradient Descent
 
@@ -10,7 +10,7 @@ Bu bölümde basit çalışma prensibine sahip machine learning modellerinin ark
 
 $$\hat{y} = wx + b$$
 
-Burada $$\hat{y}$$ yaptığımız tahminler. Gerçek değerlerimiz yani eğitim sırasında kullanıp ulaşmak istediğimiz değerlerimiz ise $$y$$. Böylece hata payımızı $$\hat{y}-y$$ şeklinde ölçebiliriz. Hata ölçmenin birçok farklı yolu olsa da temel prensip hep aynıdır: tahminlerimiz olması gereken değerlere ne kadar uzak. Hata ölçtüğümüz fonksiyonumuza __Loss__ fonksiyonu denir ve her zaman amacımız Loss'umuzu azaltmaktır. 
+Burada $$\hat{y}$$ yaptığımız tahminler. Gerçek değerlerimiz yani eğitim sırasında kullanıp ulaşmak istediğimiz değerlerimiz ise __y__. Böylece hata payımızı $$\hat{y}-y$$ şeklinde ölçebiliriz. Hata ölçmenin birçok farklı yolu olsa da temel prensip hep aynıdır: tahminlerimiz olması gereken değerlere ne kadar uzak. Hata ölçtüğümüz fonksiyonumuza __Loss__ fonksiyonu denir ve her zaman amacımız Loss'umuzu azaltmaktır. 
 
 Şimdi burada iki önemli konu var:
 
@@ -20,7 +20,7 @@ Loss fonksiyonunu matematiksel olarak yazıp yorumlayalım. Mesela popüler bir 
 
 $$Loss = {1 \over 2n} \sum_{i=1}^n(\hat{y}_i - y_i)$$
 
-Burada $$n$$ elimizdeki sample/örnek sayısıdır. $$y$$ gerçek değerler/labellarımızdır. Yani modelimiz aslında sadece $$\hat{y}$$ hesaplamasını iyileştirmeye çalışıyor. Onun da Linear Regression modeli için şöyle hesaplandığını biliyoruz: $$\hat{y} = wx + b$$. Eğer Loss fonksiyonu içinde yerine yazarsak:
+Burada __n__ elimizdeki sample/örnek sayısıdır. __y__ gerçek değerler/labellarımızdır. Yani modelimiz aslında sadece $$\hat{y}$$ hesaplamasını iyileştirmeye çalışıyor. Onun da Linear Regression modeli için şöyle hesaplandığını biliyoruz: $$\hat{y} = wx + b$$ Eğer Loss fonksiyonu içinde yerine yazarsak:
 
 $$Loss = {1 \over 2n} \sum_{i=1}^n(wx_i + b - y_i)$$
 
@@ -31,14 +31,14 @@ Böylece değerini sürekli azaltmak istediğimiz fonksiyonumuzu yazmış olduk.
 ![Loss_function](https://github.com/berkedilekoglu/machine-learning/assets/19657350/59b57f21-5e35-48ee-a660-c6bbfc469e9a)
 Figür 1: Loss Fonksiyonu
 
-Yukarıdaki resimde gördüğümüz gibi Loss fonksiyonunu çizersek bu resim üzerinde fonksiyonun en küçük değerine ulaşmayı başarabiliriz. Sarı nokta ile gösterilen yer ulaşmak istediğimiz yer. Uygun $$W$$ ve $$b$$ değerleriyle sarı noktaya ulaşabiliriz. Peki matematiksel olarak bunu nasıl yapacağız.
+Yukarıdaki resimde gördüğümüz gibi Loss fonksiyonunu çizersek bu resim üzerinde fonksiyonun en küçük değerine ulaşmayı başarabiliriz. Sarı nokta ile gösterilen yer ulaşmak istediğimiz yer. Uygun __W__ ve __b__ değerleriyle sarı noktaya ulaşabiliriz. Peki matematiksel olarak bunu nasıl yapacağız.
 
 ![Page1 2 copy 2](https://github.com/berkedilekoglu/machine-learning/assets/19657350/192b8770-0fd3-47a2-b221-011fb51b2f8b)
 Figür 2: Random başlatma sonrası loss değeri
 
-Daha önce söylediğim gibi ilk loss değerimizi bulmak için $$W$$ ve $$b$$ değerlerini random olarak belirleyip bir loss hesaplıyoruz. Bu loss değeri yukarıdaki resimde mavi nokta ile belirtilen değerdir. Gördüğünüz gibi amacımız sarı noktaya ulaşabilmek.
+Daha önce söylediğim gibi ilk loss değerimizi bulmak için __W__ ve $$b$$ değerlerini random olarak belirleyip bir loss hesaplıyoruz. Bu loss değeri yukarıdaki resimde mavi nokta ile belirtilen değerdir. Gördüğünüz gibi amacımız sarı noktaya ulaşabilmek.
 
-Grafiğin yatay eksenini $$W$$ olarak düşünelim. Zaten elimizdeki fonksiyona göre değişkenlerimiz $$W$$ ve $$b$$ olduğu için ikisinden biri olabilir. Şimdi mevcut durumumuza göre $$W$$'yü arttırmalıyız ki Loss'umuz azalsın. Tabi eğer $$W$$ değerini çok arttırıp sarı noktanın sağına geçersek de bir sonraki adımda azaltmalıyız. Burada önemli olan $$W$$'yü arttırmalı mıyız azaltmalı mıyız onu bulabilmek. 
+Grafiğin yatay eksenini __W__ olarak düşünelim. Zaten elimizdeki fonksiyona göre değişkenlerimiz __W__ ve $$b$$ olduğu için ikisinden biri olabilir. Şimdi mevcut durumumuza göre __W__'yü arttırmalıyız ki Loss'umuz azalsın. Tabi eğer __W__ değerini çok arttırıp sarı noktanın sağına geçersek de bir sonraki adımda azaltmalıyız. Burada önemli olan __W__'yü arttırmalı mıyız azaltmalı mıyız onu bulabilmek. 
 
 ![Page1 2 copy](https://github.com/berkedilekoglu/machine-learning/assets/19657350/a4c734fa-2f7a-4779-99d2-56decd68e834)
 Figür 3: Fonksiyonun belirli bir noktaya göre türevi
@@ -47,9 +47,9 @@ Gradient bir fonksiyonun, her bir parametresinin türevinden oluşan bir vektör
 
 >> Biraz karışmış gibi gelebilir o yüzden hemen tanıdık bir örneği düşünelim. Fizikten hatırlayacağınız gibi Yolun, Zamana göre türevi bize hızı verir. Bu şu demektir: Yol fonksiyonunun zamana göre değişim hızı ya da daha iyi ifade edersek Yolun birim zamandaki değişimi. Aynı şekilde eğer Hız fonksiyonunun zamana göre türevini alırsanız bu da size Hızın birim zamandaki değişimini yani ivmeyi verir. 
 
-Yukarıdaki resimde görebileceğiniz gibi Loss fonksiyonumuzun mavi noktaya göre türevini aldığımızda fonksiyonumuzun $$W$$ ve $$b$$ ye göre değişim yönünü bulabiliriz. Eğer örnekteki gibi bu noktanın türevi negatif gelirse bu fonksiyonun artan $$W$$ veya $$b$$ değerine göre azaldığına işarettir. Eğer türevimiz pozitif gelirse bu da fonksiyonun bu değerlere göre artacağını gösterir.
+Yukarıdaki resimde görebileceğiniz gibi Loss fonksiyonumuzun mavi noktaya göre türevini aldığımızda fonksiyonumuzun __W__ ve __b__ ye göre değişim yönünü bulabiliriz. Eğer örnekteki gibi bu noktanın türevi negatif gelirse bu fonksiyonun artan __W__ veya __b__ değerine göre azaldığına işarettir. Eğer türevimiz pozitif gelirse bu da fonksiyonun bu değerlere göre artacağını gösterir.
 
-O halde yeni $$W$$ ve $$b$$ değerline nasıl karar vericez ?
+O halde yeni __W__ ve __b__ değerline nasıl karar vericez ?
 
 ![Page2 3](https://github.com/berkedilekoglu/machine-learning/assets/19657350/e3faee3d-cc80-438b-b059-12bc3b53fdbc)
 Figür 4: Weight veya bias'ın yeni değerlerinin belirlenmesi
@@ -61,5 +61,12 @@ $$W_{new} = W_{old} - \alpha * {dLoss \over dW}$$
 
 $$b_{new} = b_{old} - \alpha * {dLoss \over db}$$
 
-Formülleri ile yeni değişken değerlerimiz bulunur. Burada temel mantık eski değeri büyütmek veya küçültmektir. O sebeple arada $$-$$ işareti var. Çünkü türev negatifse değişkenlerin yeni değerleri artmalı türev npozitifse azaltılmalıdır. $$\alpha$$ ise bu artışın veya azalışın ne kadar büyüklükte olacağını kontrol eden __Learning Rate__ parametresidir. Learning Rate bir hyperparametredir ve tune edilerek en doğru değeri bulunur. Yukarıdaki resimde daha net bir şekilde bunu görebilirsiniz.
+Formülleri ile yeni değişken değerlerimiz bulunur. Burada temel mantık eski değeri büyütmek veya küçültmektir. O sebeple arada __-__ işareti var. Çünkü türev negatifse değişkenlerin yeni değerleri artmalı türev pozitifse azaltılmalıdır. $$\alpha$$ ise bu artışın veya azalışın ne kadar büyüklükte olacağını kontrol eden __Learning Rate__ parametresidir. Learning Rate bir hyperparametredir ve tune edilerek en doğru değeri bulunur. Yukarıdaki resimde daha net bir şekilde bunu görebilirsiniz.
 
+### Farklı Loss Fonksiyonları (Zorluklar)
+
+Malesef loss fonksiyonları hiçbir zaman Figür 1'deki kadar kolay olmuyorlar. Bu da bize minimum noktalarını bulmakta zorluk çıkartıyor.
+
+Resim 5
+
+Figür 5'e bakacak olursanız gerçek hayattaki problemlerde karşılaşabileceğiniz loss fonksiyon grafiklerinin benzerini görebilirsiniz. Fonksiyon grafiğine baktığımızda aslında en iyi ulaşılacak noktanın __Global Minimum__ noktasına ulaşmak olduğunu görebilirsiniz. Ancak random şekilde başlatılmış bir model bizi mavi noktayla işaretli yere ulaştırdığında __Local Minimum__ noktasını atlamamız çok zor olabilir. Veya Figür 5'de görebileceğiniz __Plato__ denilen yerde sıkışıp kalabiliriz. İşte tüm bunlar ml alanının aktif araştırma konuları. Uygun random değerleri bulup bizi en uygun yerden başlatma ve en uygun optimizasyon yöntemini kullanıp Local Minimum veya Plato'ları atlatma. Bu konuları ilerde daha detaylı anlatacağım.
