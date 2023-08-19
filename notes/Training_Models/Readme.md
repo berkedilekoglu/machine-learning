@@ -18,11 +18,11 @@ Burada $$\hat{y}$$ yaptığımız tahminler. Gerçek değerlerimiz yani eğitim 
 
 Loss fonksiyonunu matematiksel olarak yazıp yorumlayalım. Mesela popüler bir Loss fonksiyonu seçelim. __MSE__ yaygın kullanılan bir loss fonksiyonudur ve şu şekilde hesaplanır:
 
-$$Loss = {1 \over 2n} \sum_{i=1}^n(\hat{y}_i - y_i)$$
+$$Loss = {1 \over 2n} \sum_{i=1}^n(\hat{y}_i - y_i)^2$$
 
 Burada __n__ elimizdeki sample/örnek sayısıdır. __y__ gerçek değerler/labellarımızdır. Yani modelimiz aslında sadece $$\hat{y}$$ hesaplamasını iyileştirmeye çalışıyor. Onun da Linear Regression modeli için şöyle hesaplandığını biliyoruz: $$\hat{y} = wx + b$$ Eğer Loss fonksiyonu içinde yerine yazarsak:
 
-$$Loss = {1 \over 2n} \sum_{i=1}^n(wx_i + b - y_i)$$
+$$Loss = {1 \over 2n} \sum_{i=1}^n(wx_i + b - y_i)^2$$
 
 Böylece değerini sürekli azaltmak istediğimiz fonksiyonumuzu yazmış olduk. Bu fonksiyonda __x__ değerleri bizim örneklerimizin featureları. Yani fonksiyon içinde aslında değiştirebileceğimiz (Modelin öğrenmesini istediğimiz) sadece 2 değerimiz var. Birisi __W__ (Weight), diğeri de __b__ (bias). İlk hesaplama için bu değerler random bir şekilde belirlenir ve hesaplama yapılır. Random bir şekilde belirlendikten sonra bir Loss hesaplayabilecek konuma geliriz. İşte buradan sonrası çok önemli. Peki bu Weight ve Bias'ı ikinci hesaplama için nasıl ayarlamalıyız ki Loss azalsın ?
 
@@ -55,7 +55,7 @@ O halde yeni __W__ ve __b__ değerline nasıl karar vericez ?
 Figür 4: Weight veya bias'ın yeni değerlerinin belirlenmesi
 
 Bu kısıma alanda optimizasyon deniyor ve birçok optimizasyon yöntemi bulunuyor. Bunlara daha sonra değineceğiz ama basitçe şu şekilde bir yöntem izleyebiliriz. Bu basit yöntem üzerinde geliştirmeler yapılarak diğer optimizasyon yöntemleri ortaya çıkmıştır.
-Resimde göreceğiniz gibi:
+Figür 4'de göreceğiniz gibi:
 
 $$W_{new} = W_{old} - \alpha * {dLoss \over dW}$$
 
@@ -63,11 +63,15 @@ $$b_{new} = b_{old} - \alpha * {dLoss \over db}$$
 
 Formülleri ile yeni değişken değerlerimiz bulunur. Burada temel mantık eski değeri büyütmek veya küçültmektir. O sebeple arada __-__ işareti var. Çünkü türev negatifse değişkenlerin yeni değerleri artmalı türev pozitifse azaltılmalıdır. $$\alpha$$ ise bu artışın veya azalışın ne kadar büyüklükte olacağını kontrol eden __Learning Rate__ parametresidir. Learning Rate bir hyperparametredir ve tune edilerek en doğru değeri bulunur. Yukarıdaki resimde daha net bir şekilde bunu görebilirsiniz.
 
+resim 5
+
+Figür 5'de ayrıntılı olarak MSE ve linear bir fonksiyon (Linear Regression) için türev kullanılarak nasıl optimizasyon formülüne sokulur görebiliriz.görebilirsiniz.
+
 ### Farklı Loss Fonksiyonları (Zorluklar)
 
 Malesef loss fonksiyonları hiçbir zaman Figür 1'deki kadar kolay olmuyorlar. Bu da bize minimum noktalarını bulmakta zorluk çıkartıyor.
 
 ![loss](https://github.com/berkedilekoglu/machine-learning/assets/19657350/e1ebb2a7-f80c-438d-a396-5f753a2821ad)
-Figür 5: Loss fonksiyon grafiği
+Figür 6: Loss fonksiyon grafiği
 
-Figür 5'e bakacak olursanız gerçek hayattaki problemlerde karşılaşabileceğiniz loss fonksiyon grafiklerinin benzerini görebilirsiniz. Fonksiyon grafiğine baktığımızda aslında en iyi ulaşılacak noktanın __Global Minimum__ noktasına ulaşmak olduğunu görebilirsiniz. Ancak random şekilde başlatılmış bir model bizi mavi noktayla işaretli yere ulaştırdığında __Local Minimum__ noktasını atlamamız çok zor olabilir. Veya Figür 5'de görebileceğiniz __Plato__ denilen yerde sıkışıp kalabiliriz. İşte tüm bunlar ml alanının aktif araştırma konuları. Uygun random değerleri bulup bizi en uygun yerden başlatma ve en uygun optimizasyon yöntemini kullanıp Local Minimum veya Plato'ları atlatma. Bu konuları ilerde daha detaylı anlatacağım.
+Figür 6'e bakacak olursanız gerçek hayattaki problemlerde karşılaşabileceğiniz loss fonksiyon grafiklerinin benzerini görebilirsiniz. Fonksiyon grafiğine baktığımızda aslında en iyi ulaşılacak noktanın __Global Minimum__ noktasına ulaşmak olduğunu görebilirsiniz. Ancak random şekilde başlatılmış bir model bizi mavi noktayla işaretli yere ulaştırdığında __Local Minimum__ noktasını atlamamız çok zor olabilir. Veya Figür 6'de görebileceğiniz __Plato__ denilen yerde sıkışıp kalabiliriz. İşte tüm bunlar ml alanının aktif araştırma konuları. Uygun random değerleri bulup bizi en uygun yerden başlatma ve en uygun optimizasyon yöntemini kullanıp Local Minimum veya Plato'ları atlatma. Bu konuları ilerde daha detaylı anlatacağım.
