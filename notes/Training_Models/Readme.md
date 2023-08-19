@@ -28,17 +28,20 @@ Böylece değerini sürekli azaltmak istediğimiz fonksiyonumuzu yazmış olduk.
 
 2) Bir fonksiyonun türevi ne anlama gelir ?
 
-Resim 1
+![Loss_function](https://github.com/berkedilekoglu/machine-learning/assets/19657350/59b57f21-5e35-48ee-a660-c6bbfc469e9a)
+Figür 1: Loss Fonksiyonu
 
 Yukarıdaki resimde gördüğümüz gibi Loss fonksiyonunu çizersek bu resim üzerinde fonksiyonun en küçük değerine ulaşmayı başarabiliriz. Sarı nokta ile gösterilen yer ulaşmak istediğimiz yer. Uygun $$W$$ ve $$b$$ değerleriyle sarı noktaya ulaşabiliriz. Peki matematiksel olarak bunu nasıl yapacağız.
 
-Resim 2
+![Page1 2 copy 2](https://github.com/berkedilekoglu/machine-learning/assets/19657350/192b8770-0fd3-47a2-b221-011fb51b2f8b)
+Figür 2: Random başlatma sonrası loss değeri
 
 Daha önce söylediğim gibi ilk loss değerimizi bulmak için $$W$$ ve $$b$$ değerlerini random olarak belirleyip bir loss hesaplıyoruz. Bu loss değeri yukarıdaki resimde mavi nokta ile belirtilen değerdir. Gördüğünüz gibi amacımız sarı noktaya ulaşabilmek.
 
 Grafiğin yatay eksenini $$W$$ olarak düşünelim. Zaten elimizdeki fonksiyona göre değişkenlerimiz $$W$$ ve $$b$$ olduğu için ikisinden biri olabilir. Şimdi mevcut durumumuza göre $$W$$'yü arttırmalıyız ki Loss'umuz azalsın. Tabi eğer $$W$$ değerini çok arttırıp sarı noktanın sağına geçersek de bir sonraki adımda azaltmalıyız. Burada önemli olan $$W$$'yü arttırmalı mıyız azaltmalı mıyız onu bulabilmek. 
 
-Resim 3
+![Page1 2 copy](https://github.com/berkedilekoglu/machine-learning/assets/19657350/a4c734fa-2f7a-4779-99d2-56decd68e834)
+Figür 3: Fonksiyonun belirli bir noktaya göre türevi
 
 Gradient bir fonksiyonun, her bir parametresinin türevinden oluşan bir vektördür. Yani gradient'i bir fonksiyonun türevi olarak düşünürsek ne anlam ifade eder ? Matematiksel olarak bir fonksiyonun belli bir noktaya göre türevini aldığımızda, fonksiyonun o noktadaki yönü ve eğimini bulabiliriz. Bu da aslında bize hangi parametreye göre fonksiyonun türevini aldıysak, fonksiyonun o parametreye göre değişim hızını gösterir. 
 
@@ -48,7 +51,8 @@ Yukarıdaki resimde görebileceğiniz gibi Loss fonksiyonumuzun mavi noktaya gö
 
 O halde yeni $$W$$ ve $$b$$ değerline nasıl karar vericez ?
 
-Resim 4
+![Page2 3](https://github.com/berkedilekoglu/machine-learning/assets/19657350/e3faee3d-cc80-438b-b059-12bc3b53fdbc)
+Figür 4: Weight veya bias'ın yeni değerlerinin belirlenmesi
 
 Bu kısıma alanda optimizasyon deniyor ve birçok optimizasyon yöntemi bulunuyor. Bunlara daha sonra değineceğiz ama basitçe şu şekilde bir yöntem izleyebiliriz. Bu basit yöntem üzerinde geliştirmeler yapılarak diğer optimizasyon yöntemleri ortaya çıkmıştır.
 Resimde göreceğiniz gibi:
