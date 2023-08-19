@@ -24,7 +24,7 @@ Burada __n__ elimizdeki sample/örnek sayısıdır. __y__ gerçek değerler/labe
 
 $$Loss = {1 \over 2n} \sum_{i=1}^n(wx_i + b - y_i)$$
 
-Böylece değerini sürekli azaltmak istediğimiz fonksiyonumuzu yazmış olduk. Bu fonksiyonda $$x$$ değerleri bizim örneklerimizin featureları. Yani fonksiyon içinde aslında değiştirebileceğimiz (Modelin öğrenmesini istediğimiz) sadece 2 değerimiz var. Birisi w (Weight), diğeri de b (bias). İlk hesaplama için bu değerler random bir şekilde belirlenir ve hesaplama yapılır. Random bir şekilde belirlendikten sonra bir Loss hesaplayabilecek konuma geliriz. İşte buradan sonrası çok önemli. Peki bu Weight ve Bias'ı ikinci hesaplama için nasıl ayarlamalıyız ki Loss azalsın ?
+Böylece değerini sürekli azaltmak istediğimiz fonksiyonumuzu yazmış olduk. Bu fonksiyonda __x__ değerleri bizim örneklerimizin featureları. Yani fonksiyon içinde aslında değiştirebileceğimiz (Modelin öğrenmesini istediğimiz) sadece 2 değerimiz var. Birisi __W__ (Weight), diğeri de __b__ (bias). İlk hesaplama için bu değerler random bir şekilde belirlenir ve hesaplama yapılır. Random bir şekilde belirlendikten sonra bir Loss hesaplayabilecek konuma geliriz. İşte buradan sonrası çok önemli. Peki bu Weight ve Bias'ı ikinci hesaplama için nasıl ayarlamalıyız ki Loss azalsın ?
 
 2) Bir fonksiyonun türevi ne anlama gelir ?
 
@@ -36,9 +36,9 @@ Yukarıdaki resimde gördüğümüz gibi Loss fonksiyonunu çizersek bu resim ü
 ![Page1 2 copy 2](https://github.com/berkedilekoglu/machine-learning/assets/19657350/192b8770-0fd3-47a2-b221-011fb51b2f8b)
 Figür 2: Random başlatma sonrası loss değeri
 
-Daha önce söylediğim gibi ilk loss değerimizi bulmak için __W__ ve $$b$$ değerlerini random olarak belirleyip bir loss hesaplıyoruz. Bu loss değeri yukarıdaki resimde mavi nokta ile belirtilen değerdir. Gördüğünüz gibi amacımız sarı noktaya ulaşabilmek.
+Daha önce söylediğim gibi ilk loss değerimizi bulmak için __W__ ve __b__ değerlerini random olarak belirleyip bir loss hesaplıyoruz. Bu loss değeri yukarıdaki resimde mavi nokta ile belirtilen değerdir. Gördüğünüz gibi amacımız sarı noktaya ulaşabilmek.
 
-Grafiğin yatay eksenini __W__ olarak düşünelim. Zaten elimizdeki fonksiyona göre değişkenlerimiz __W__ ve $$b$$ olduğu için ikisinden biri olabilir. Şimdi mevcut durumumuza göre __W__'yü arttırmalıyız ki Loss'umuz azalsın. Tabi eğer __W__ değerini çok arttırıp sarı noktanın sağına geçersek de bir sonraki adımda azaltmalıyız. Burada önemli olan __W__'yü arttırmalı mıyız azaltmalı mıyız onu bulabilmek. 
+Grafiğin yatay eksenini __W__ olarak düşünelim. Zaten elimizdeki fonksiyona göre değişkenlerimiz __W__ ve __b__ olduğu için ikisinden biri olabilir. Şimdi mevcut durumumuza göre __W__'yü arttırmalıyız ki Loss'umuz azalsın. Tabi eğer __W__ değerini çok arttırıp sarı noktanın sağına geçersek de bir sonraki adımda azaltmalıyız. Burada önemli olan __W__'yü arttırmalı mıyız azaltmalı mıyız onu bulabilmek. 
 
 ![Page1 2 copy](https://github.com/berkedilekoglu/machine-learning/assets/19657350/a4c734fa-2f7a-4779-99d2-56decd68e834)
 Figür 3: Fonksiyonun belirli bir noktaya göre türevi
@@ -67,6 +67,7 @@ Formülleri ile yeni değişken değerlerimiz bulunur. Burada temel mantık eski
 
 Malesef loss fonksiyonları hiçbir zaman Figür 1'deki kadar kolay olmuyorlar. Bu da bize minimum noktalarını bulmakta zorluk çıkartıyor.
 
-Resim 5
+![loss](https://github.com/berkedilekoglu/machine-learning/assets/19657350/e1ebb2a7-f80c-438d-a396-5f753a2821ad)
+Figür 5: Loss fonksiyon grafiği
 
 Figür 5'e bakacak olursanız gerçek hayattaki problemlerde karşılaşabileceğiniz loss fonksiyon grafiklerinin benzerini görebilirsiniz. Fonksiyon grafiğine baktığımızda aslında en iyi ulaşılacak noktanın __Global Minimum__ noktasına ulaşmak olduğunu görebilirsiniz. Ancak random şekilde başlatılmış bir model bizi mavi noktayla işaretli yere ulaştırdığında __Local Minimum__ noktasını atlamamız çok zor olabilir. Veya Figür 5'de görebileceğiniz __Plato__ denilen yerde sıkışıp kalabiliriz. İşte tüm bunlar ml alanının aktif araştırma konuları. Uygun random değerleri bulup bizi en uygun yerden başlatma ve en uygun optimizasyon yöntemini kullanıp Local Minimum veya Plato'ları atlatma. Bu konuları ilerde daha detaylı anlatacağım.
