@@ -63,7 +63,8 @@ $$b_{new} = b_{old} - \alpha * {dLoss \over db}$$
 
 Formülleri ile yeni değişken değerlerimiz bulunur. Burada temel mantık eski değeri büyütmek veya küçültmektir. O sebeple arada __-__ işareti var. Çünkü türev negatifse değişkenlerin yeni değerleri artmalı türev pozitifse azaltılmalıdır. $$\alpha$$ ise bu artışın veya azalışın ne kadar büyüklükte olacağını kontrol eden __Learning Rate__ parametresidir. Learning Rate bir hyperparametredir ve tune edilerek en doğru değeri bulunur. Yukarıdaki resimde daha net bir şekilde bunu görebilirsiniz.
 
-resim 5
+![Note 18 Aug 2023](https://github.com/berkedilekoglu/machine-learning/assets/19657350/947f2105-61a7-42bc-835e-769c70dce561)
+Figür 5: Matematiksel olarak Loss'un Weight ve bias'a göre türevinin alınması.
 
 Figür 5'de ayrıntılı olarak MSE ve linear bir fonksiyon (Linear Regression) için türev kullanılarak nasıl optimizasyon formülüne sokulur görebiliriz.görebilirsiniz.
 
