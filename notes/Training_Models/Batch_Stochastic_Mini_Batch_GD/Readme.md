@@ -1,6 +1,6 @@
 # Farklı Gradient Descent Yöntemlerinin Karşılaştırılması #
 
-Farklı gradient descent algoritmalarını görmeden önce iki tane temel kavramı anlatmak istiyorum. Bunları anlayabilirsek farklı algoritmaları anlamamız daha kolay olacaktır. Çünkü gradient descent iteratif bir optimizasyon yöntemidir. Yani modelimizi step step iyileştirmeye çalıştığımız ve her bir stepde loss'umuzu azaltmayı hedeflediğimiz bir yöntemdir. Burada öne çıkan iki kavram __Batch Size__ ve __Epoch__ kavramlarıdır.
+Farklı gradient descent algoritmalarını görmeden önce iki tane temel kavramı anlatmak istiyorum. Bunları anlayabilirsek farklı algoritmaları anlamamız daha kolay olacaktır. Çünkü gradient descent iteratif bir algoritmadır. Yani modelimizi step step iyileştirmeye çalıştığımız ve her bir stepde loss'umuzu azaltmayı hedeflediğimiz bir yöntemdir. Burada öne çıkan iki kavram __Batch Size__ ve __Epoch__ kavramlarıdır.
 
 ## Epoch ##
 
@@ -79,7 +79,10 @@ y = 4 + 3 * X + np.random.randn(100, 1)
 
 Örneğimizde yine MSE üzerinden ve Linear Regression üzerinden gideceğiz. Size bu problem için __W__ ve __b__ vektörlerinin boyutlarını nasıl seçeceğinizi şu resimlerle gösterebilirim:
 
-Resimler
+![Page1 5](https://github.com/berkedilekoglu/machine-learning/assets/19657350/95c6ec36-4f9d-4593-8e70-a96ec14fe2df)
+Burada önemli olan nokta __W__ vektörünün boyutu kendisinin çarpıldığı vektörün ve sonuç vektörünün boyutlarına göre belirlenirken __b__ vektörünün bir column vektör olması ve etki edeceği nöron sayısına göre belirlenmesidir. Yukarıdaki gibi çizim yöntemi ile bunu belirleyemiyorsanız aşağıdaki gibi matematiksel olarak belirleyebilirsiniz.
+![Page2 5](https://github.com/berkedilekoglu/machine-learning/assets/19657350/00201d82-da23-4dfd-bdb9-e421540dc19d)
+
 
 ```python
 # Rastgele başlangıç değerleri atanmış W ve b vektörlerimizi oluşturalım
@@ -182,7 +185,8 @@ plt.show()
 
 Aşağıdaki figürden de görebileceğiniz gibi Batch GD yöntemi kendinden emin adımlarla optimal noktaya doğru ilerlemiş ve durmuş. SGD yönteminin çizdiği zikzakları görüyorsunuz. İşte bahsettiğim her bir örnekten spesifik olarak etkilenme olayı burada karşımıza çıkıyor. Ayrıca optimal parametreleri aramaya da devam ediyor ama bir noktada sabit kalmak yerine geniş bir alanda zikzaklar çizmiş. İkisinin tam ortasında mini-batch gd'in olduğunu görüyoruz. 
 
-IMAGE
+![gd_comparison copy](https://github.com/berkedilekoglu/machine-learning/assets/19657350/98baaf35-a7fb-48dc-91d2-a34df19d71fd)
+
 
 >> Notlar: Size şu yöntem daha iyidir diyemiyorum. Örneğin çok büyük Transformer modelleri train edecekseniz mecburen Batch Size'ınız 1 olabilir. Ayrıca Batch Size arttıkça accuracy'niz artar da diyemiyorum çünkü problemden probleme değişeceği için Tune edilmesi gereken bir parametre. Günümüzdeki optimizasyon algoritmaları figürde gördüğümüz noisy dolanmaları veya istediğimiz yere ulaşamama problemlerini çözebiliyorlar. 
 
