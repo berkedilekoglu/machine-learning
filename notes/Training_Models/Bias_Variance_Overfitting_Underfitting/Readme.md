@@ -43,6 +43,7 @@ Peki __Overfitting__'e neler yol açabilir ve nasıl çözülür:
 
 ## Trade-off ##
 
-Img
+![Note 18 Aug 2025](https://github.com/berkedilekoglu/machine-learning/assets/19657350/e817ab18-e745-46ed-a610-8efdbe0f1dd8)
+
 
 Figürden ve örneklerden fark edeceğiniz gibi yüksek variance ve düşük bias bize overfitting getirir. Düşük variance ve düşük bias ise bizi düşlediğimiz mükemmel sonuca götürür :) Ama arada bir denge vardır. Yani overfit ediyorsanız modeli basitleştirin demek aslında bias'ı arttırın demektir. Ama bias'ı çok arttırırsanız bu sefer de modeliniz underfit etmiş olacaktır yani variance'ınız düşecektir. Aslında bu alanda yapacağınız tüm deneyler bu aradaki dengeyi en iyi şekilde sağlamaya çalışmakla geçer :)
