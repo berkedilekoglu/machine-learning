@@ -49,13 +49,13 @@
         - Gradient Boosting
     - Stacking
 - [Training Models](https://github.com/berkedilekoglu/machine-learning/tree/main/notes/Training_Models#training-models)
-    - Gradient Descent
+    - [Gradient Descent](https://github.com/berkedilekoglu/machine-learning/tree/main/notes/Gradient_Descent)
         - Gradient nedir ve nasıl kullanılır ?
         - Matematiksel olarak Gradient hesaplamak
         - MSE Loss ve Linear Regression ile weight yenilemek
         - Farklı Loss Fonksiyonlarındaki Zorluklar
         - Local Minimum, Global Minimum ve Plato nedir ?
-    - Farklı Gradient Descent Yöntemlerinin Karşılaştırılması
+    - [Farklı Gradient Descent Yöntemlerinin Karşılaştırılması](https://github.com/berkedilekoglu/machine-learning/tree/main/notes/Training_Models/Batch_Stochastic_Mini_Batch_GD#farkl%C4%B1-gradient-descent-y%C3%B6ntemlerinin-kar%C5%9F%C4%B1la%C5%9Ft%C4%B1r%C4%B1lmas%C4%B1)
         - Epoch
         - Batch Size
         - Farklı Gradient Descent Yöntemleri
