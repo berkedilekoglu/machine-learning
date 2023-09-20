@@ -24,11 +24,13 @@ $$y = ax^2 + bx + c$$
 
 Gelin bu fonksiyona göre data oluşturduğumuzda bunun neye benzediğine bakalım.
 
-IMAGE
+![curve_data](https://github.com/berkedilekoglu/machine-learning/assets/19657350/a992b31f-6044-45de-a1ae-7d417acdb5a4)
+
 
 Gördüğünüz gibi X ve y noktaları parabolik bir şekilde çiziliyor. Ancak bu fonksiyonu lineer bir doğru ile tahmin etmeye çalışmak imkansız. Lineer bir doğruyu bu parabole yerleştirmeye çalıştığınızı düşünün, hata payınız çok olacaktır. 
 
-IMAGE
+![linear_error](https://github.com/berkedilekoglu/machine-learning/assets/19657350/a35b4557-55b1-4a15-9549-eaa2c2abe178)
+
 
 Yukarıdaki figürde görüldüğü gibi lineer bir doğru üzerinde fonksiyonumuzu tahmin etmeye çalıştığımızda ve MSE ölçtüğümüzde hata payımız yaklaşık 1.847 çıktı. 
 
@@ -36,7 +38,8 @@ Peki nasıl daha iyi bir tahminleme yapabiliriz ? Şuan elimizde olan datalarım
 
 Sklearn kütüphanesinin PolynomialFeatures fonksiyonunu kullanarak elimizdeki datalara feature ekleyebiliriz. Bu fonksiyonun çalışma prensibini sayıların üstlerini alma şeklinde düşünebilirsiniz. Aşağıdaki resimde detaylı anlatımını göstericem.
 
-IMG
+![Note 18 Aug 2024](https://github.com/berkedilekoglu/machine-learning/assets/19657350/00bb8caa-8686-44a6-9f72-d26e6aea058f)
+
 
 Resimde de görebileceğiniz şekilde PolynomialFeatures fonksiyonunu kullanarak elimizdeki featureları polynomial olarak genişletebilir ve kendimize yeni featurelar bulabiliriz. 
 
@@ -48,7 +51,8 @@ X_poly = poly_features.fit_transform(X)
 
 Dediğim gibi sklearn ile bunu yapmak çok kolay. Şimdi yeni featurelarımızla aynı fonksiyonu çözmeye çalışalım. 
 
-IMG 
+<img width="854" alt="Screenshot 2023-09-14 at 14 00 07" src="https://github.com/berkedilekoglu/machine-learning/assets/19657350/c2af1986-027f-4b4d-91d0-16cd7e165af3">
+
 
 Figürlerde de görebileceğiniz gibi feature dimensionlarımızı arttırdıkça ölçtüğümüz MSE değerlerimiz düşüyor. Ayrıca figürlerdeki mavi noktalar tahmin edilecek datalarımızı ve kırmızı çizgi tahminlerimizi gösterdiği için direkt figüre bakarak 25-dim boyutunda feature kullandığımızda daha iyi tahminler yaptığımızı görebilirsiniz.
 
@@ -56,7 +60,8 @@ Peki gerçekten durum bu mu ? Yani dimensionımızı ne kadar arttırırsak o ka
 
 ## Performance on Val Data ##
 
-IMG 
+<img width="732" alt="Screenshot 2023-09-19 at 17 53 29" src="https://github.com/berkedilekoglu/machine-learning/assets/19657350/50beb56c-226f-47bc-88d2-ebd8667e7f18">
+
 
 Dimensionımızı arttırdığımızda işler iyiye mi gidiyor kötüye mi gidiyor anlamamızın yolu modelimizin performansını validation datamız üzerinde test etmektir. Unutmamalıyız ki modelimiz ve kullanacağımız featurelarımızla alakalı kararlar verirken training datamız üzerindeki hatamıza değil validation set üzerindeki datamıza bakmamız gerekir. Çünkü modelimizin daha sonra hiç görmeyeceği bir data üzerindeki performansı önemlidir. Aslında bunu test etmenin en güzel yolu cross validation dediğimiz yöntemdir ancak bunu daha sonra anlatacağım. Şimdilik basitçe ```sklearn train_test_split``` fonksiyonunu kullanarak train ve test datamızı oluşturalım.
 
@@ -67,7 +72,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 Figüre baktığımızda training datamız üzerinde oluşan hatalar 2dim için 0.088 25dim için 0.057. Eğer bu değerlere bakıp hareket edersek 25dim'lik featureları seçip yolumuza devam edebiliriz. Ancak validation data üzerindeki hatalarıma baktığımızda tam tersi bir durum söz konusu. Peki nasıl seçim yapacağız. Eğer sabit bir validation datası kullanıyorsanız dimension arttıkça hatanızın nasıl değiştiğine bakabilirsiniz. Bu yöntem cross validation yöntemi varken tercih edilmemelidir ama mantık her iki yöntemde de validation error'e göre karar vermek olduğundan gelin artan dimension'lara göre hatamız nasıl değişiyor bakalım.
 
-IMG 
+![error_with_dimension](https://github.com/berkedilekoglu/machine-learning/assets/19657350/fe0ad84e-ecf6-4b7f-905b-990f48037d7d)
+
 
 gördüğünüz gibi aslında dimension 7'yi geçtiğinde artık overfitting gözlemlemeye başlıyoruz. Bu sebeple doğru dimension olarak 7'yi seçebiliriz. Overfitting sorununu nasıl çözeceğinize [şuradan](https://github.com/berkedilekoglu/machine-learning/blob/main/notes/Training_Models/Bias_Variance_Overfitting_Underfitting/Readme.md#overfitting-underfitting) bakabilirsiniz. 
 
