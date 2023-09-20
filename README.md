@@ -71,6 +71,12 @@
         - Underfitting
             - Nedenleri ve nasıl üstesinden gelineceği
         - Trade-off
+    - [Polynomial Regression](https://github.com/berkedilekoglu/machine-learning/blob/main/notes/Training_Models/Polynomial_Regression/Readme.md#regression)
+        - Polynomial Regression
+        - Sklearn PolynomialFeatures fonksiyonu nasıl çalışır ?
+        - Linear Regression vs Polynomial Regression
+        - Curse of Dimensionality
+        
 
 ## References
 - [GeÌ ron, A. (2019). Hands-on machine learning with Scikit-Learn, Keras and TensorFlow: concepts, tools, and techniques to build intelligent systems (2nd ed.).](https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/)
