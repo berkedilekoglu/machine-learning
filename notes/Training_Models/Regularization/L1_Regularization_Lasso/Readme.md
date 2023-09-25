@@ -16,6 +16,8 @@ Burada lambda değeri bir hyperparametredir ve regularization'ın ne derecede et
 
 Şimdi aşağıdaki figürde linear regression üzerinde bir örnek yapacağız ve L1 Regularization'ın ne işe yaradığını çok daha net göreceğiz. Bu figürdeki Regression aynı zamanda __Lasso Regression__ olarak geçmektedir.
 
+![Note 18 Aug 2027](https://github.com/berkedilekoglu/machine-learning/assets/19657350/43422a26-31bc-43b4-a554-7030eb103d4e)
+
 Gelin sırayla figürdeki kısımlar üzerinden gidelim:
 
 1. kısımı [Gradient Descent](https://github.com/berkedilekoglu/machine-learning/blob/main/notes/Training_Models/Gradient_Descent/Readme.md) konusunu işlerken gördük. Linear regression denklemi ve denklemdeki parametrelerin neler oldukları. Burada __W__ ve __b__ vektörlerini öğreniyoruz.
