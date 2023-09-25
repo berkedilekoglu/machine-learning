@@ -3,6 +3,7 @@
 - Türkçe Machine Learning Notları.
 - Terimler ingilizce bırakılmış konular türkçe anlatılmıştır.
 - Sadece Introduction kısmı ingilizcedir. Daha sonra çevrilecektir.
+- **_Repoyu referans gösterip notları istediğiniz gibi kullanabilirsiniz._**
 
 ## Konular ##
 
